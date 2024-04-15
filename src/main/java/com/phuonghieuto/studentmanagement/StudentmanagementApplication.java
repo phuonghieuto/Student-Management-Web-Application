@@ -1,17 +1,13 @@
 package com.phuonghieuto.studentmanagement;
 
-import com.phuonghieuto.studentmanagement.entity.Student;
 import com.phuonghieuto.studentmanagement.repository.StudentRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import java.util.Arrays;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 @SpringBootApplication
+@EnableWebSecurity
 public class StudentmanagementApplication {
 
 	@Autowired
