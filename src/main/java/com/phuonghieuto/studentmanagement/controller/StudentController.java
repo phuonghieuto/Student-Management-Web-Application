@@ -3,11 +3,17 @@ package com.phuonghieuto.studentmanagement.controller;
 import com.phuonghieuto.studentmanagement.entity.Student;
 import com.phuonghieuto.studentmanagement.service.StudentService;
 import lombok.AllArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @AllArgsConstructor
 @Controller
@@ -39,23 +45,52 @@ public class StudentController {
         return "list";
     }
 
-    @GetMapping("/students/add")
+    @GetMapping("/add")
     public String addStudent(Model model) {
+        model.addAttribute("student", new Student());
+
         return "add";
     }
 
-    @GetMapping("/students/edit")
-    public String editStudent(Model model) {
+    @GetMapping("/edit")
+    public String editStudent(Model model, @RequestParam ObjectId id) {
+        final Optional<Student> record = studentService.getStudent(id);
+
+        model.addAttribute("student", record.orElseGet(Student::new));
+        model.addAttribute("id", id);
         return "edit";
     }
 
-    @GetMapping("/students/delete")
-    public String deleteStudent(Model model) {
+    @PostMapping("/save")
+    public String save(final Model model, @ModelAttribute final Student student, final BindingResult errors) {
+
+        studentService.saveStudent(student);
+        return "redirect:students";
+    }
+
+    @GetMapping("/delete")
+    public String deleteStudent(Model model, @RequestParam ObjectId id) {
+        final Optional<Student> record = studentService.getStudent(id);
+
+        model.addAttribute("student", record.orElseGet(Student::new));
+        model.addAttribute("id", id);
         return "delete";
     }
 
-    @GetMapping("/students/view")
-    public String viewStudent(Model model) {
+    @PostMapping("/delete")
+    public String deletion(final Model model, @RequestParam ObjectId id) {
+
+        studentService.deleteStudent(id);
+
+        return "redirect:students";
+    }
+
+    @GetMapping("/view")
+    public String viewStudent(Model model, @RequestParam ObjectId id) {
+        final Optional<Student> record = studentService.getStudent(id);
+
+        model.addAttribute("student", record.orElseGet(Student::new));
+        model.addAttribute("id", id);
         return "view";
     }
 }

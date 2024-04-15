@@ -24,7 +24,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <h1>Student Management System</h1>
+        <a href="/students" class="text-decoration-none"><h1>Student Management System</h1></a>
         <div class="d-flex">
             <button class="btn btn-primary" type="submit">Logout</button>
         </div>
@@ -38,18 +38,18 @@
     <table class="table table-bordered table-striped table-hover">
         <thead>
         <tr>
-            <th style="width: 10%; text-align: center">#</th>
-            <th style="width: 30%;">First Name</th>
-            <th style="width: 30%;">Last Name</th>
-            <th style="width: 30%;">&nbsp;</th>
+            <th class="text-center" style="width: 10%; text-align: center">#</th>
+            <th class="text-center" style="width: 30%;">First Name</th>
+            <th class="text-center" style="width: 30%;">Last Name</th>
+            <th class="text-center" style="width: 30%;">&nbsp;</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="student,iteration : ${students}">
-            <td th:text="${(currentPageNumber * pageSize) + iteration.count}">1</td>
-            <td th:text="${student.firstName}">John</td>
-            <td th:text="${student.lastName}">Doe</td>
-            <td>
+            <td class="text-center" th:text="${(currentPageNumber * pageSize) + iteration.count}">1</td>
+            <td class="text-center" th:text="${student.firstName}">John</td>
+            <td class="text-center" th:text="${student.lastName}">Doe</td>
+            <td class="text-center">
                 <a class="btn btn-info" th:href="'view?id=' + ${student.id}">View</a>
                 <a class="btn btn-warning" th:href="'edit?id=' + ${student.id}">Edit</a>
                 <a class="btn btn-danger" th:href="'delete?id=' + ${student.id}">Delete</a>
@@ -60,7 +60,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a href="#" class="btn btn-primary">Add new</a>
+            <a href="/add" class="btn btn-primary">Add new</a>
             <div class="d-flex">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
